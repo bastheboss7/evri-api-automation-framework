@@ -6,6 +6,7 @@ target/
 test-output/
 allure-results/
 src/test/resources/secret.properties
+src/test/resources/config.properties
 reports-html/
 allure-report/
 test-evidences/

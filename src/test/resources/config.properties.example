@@ -1,0 +1,4 @@
+# ParcelShop API Common Config Details
+parcelshop.base.uri=https://api.example.com
+parcelshop.base.path=/enterprise-parcelshop-api/v1/parcelshop
+parcelshop.api.key=YOUR_API_KEY_HERE

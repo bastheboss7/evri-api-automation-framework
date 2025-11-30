@@ -1,5 +1,10 @@
 name: Evri API Test Suite
 
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
+
 on:
   push:
     branches: [ main, develop ]

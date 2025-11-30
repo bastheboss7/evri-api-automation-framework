@@ -66,10 +66,25 @@ public class ParcelShopSteps {
 		if (requestBuilder == null) {
 			throw new IllegalStateException("RequestBuilder is null - @Before hook may not have executed");
 		}
-		requestBuilder.setBaseUri(config("parcelshop.base.uri"));
-		requestBuilder.setBasePath(config("parcelshop.base.path"));
+		String baseUri = config("parcelshop.base.uri");
+		String basePath = config("parcelshop.base.path");
+		String apiKey = config("parcelshop.api.key");
+		System.out.println("[DEBUG] Base URI: " + baseUri);
+		System.out.println("[DEBUG] Base Path: " + basePath);
+		System.out.println("[DEBUG] API Key: " + (apiKey != null && !apiKey.isEmpty() ? "<present>" : "<missing>"));
+		if (baseUri == null || baseUri.isEmpty()) {
+			throw new IllegalStateException("Base URI is not set! Check config.properties and property loading in pipeline.");
+		}
+		if (basePath == null || basePath.isEmpty()) {
+			throw new IllegalStateException("Base Path is not set! Check config.properties and property loading in pipeline.");
+		}
+		if (apiKey == null || apiKey.isEmpty()) {
+			throw new IllegalStateException("API Key is not set! Check config.properties and property loading in pipeline.");
+		}
+		requestBuilder.setBaseUri(baseUri);
+		requestBuilder.setBasePath(basePath);
 		requestBuilder.addHeader("Content-Type", "application/json");
-		requestBuilder.addHeader("apikey", config("parcelshop.api.key"));
+		requestBuilder.addHeader("apikey", apiKey);
 	}
 
 	/**

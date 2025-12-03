@@ -67,7 +67,7 @@ jobs:
           FEATURE_ARG="-Dcucumber.features=src/test/java/com/matschie/parcelshop/features/${{ github.event.inputs.feature_files }}"
         fi
         if [ -n "${{ github.event.inputs.cucumber_tags }}" ]; then
-          TAG_ARG="-Dcucumber.filter.tags='${{ github.event.inputs.cucumber_tags }}'"
+          TAG_ARG="-Dcucumber.filter.tags=${{ github.event.inputs.cucumber_tags }}"
         fi
         mvn clean test $FEATURE_ARG $TAG_ARG -Dtest=ParcelShopCucumberRunner
       continue-on-error: true

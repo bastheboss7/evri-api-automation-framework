@@ -295,17 +295,20 @@ mvn clean test -Dtest=ParcelShopCucumberRunner
 ```
 
 ### Run by Cucumber Tags
-Uncomment/modify tags in runner class:
-```java
-@CucumberOptions(
-    tags = "@smoke"  // or "@smoke and @count"
-)
-```
 
-Then run:
-```bash
-mvn clean test
-```
+### Run by Cucumber Tags or Feature Files (GitHub Actions)
+You can run tests by tag or feature file using the GitHub Actions workflow:
+
+**Available tags:**
+- `@smoke`
+- `@count`
+- `@postcode`
+- `@regression`
+
+**How to use:**
+1. Go to the Actions tab in GitHub.
+2. Select the `Evri API Test Suite` workflow and click "Run workflow".
+3. Enter feature files (comma-separated, e.g. `ParcelShop.feature`) or tags (e.g. `@smoke,@regression`). Leave blank to run all.
 
 ### Alternative: Command-line Tag Filtering
 ```bash

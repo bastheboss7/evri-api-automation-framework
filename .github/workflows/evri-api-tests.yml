@@ -11,6 +11,16 @@ on:
   pull_request:
     branches: [ main, develop ]
   workflow_dispatch:
+    inputs:
+      feature_files:
+        description: 'Comma-separated list of feature files to run (e.g. ParcelShop.feature,Another.feature). Leave blank to run all.'
+        required: false
+        default: ''
+      cucumber_tags:
+        description: 'Cucumber tags to run. Options: @smoke, @count, @postcode, @regression. Leave blank to run all.'
+        required: false
+        default: ''
+  
   #Disable Job
   # schedule:
   #   - cron: '0 6 * * 1-5'  # Run at 6 AM UTC, Monday-Friday
@@ -50,7 +60,16 @@ jobs:
         echo "parcelshop.api.key=${{ secrets.PARCELSHOP_API_KEY }}" >> src/test/resources/config.properties
     
     - name: Run tests
-      run: mvn clean test -Dtest=ParcelShopCucumberRunner
+      run: |
+        FEATURE_ARG=""
+        TAG_ARG=""
+        if [ -n "${{ github.event.inputs.feature_files }}" ]; then
+          FEATURE_ARG="-Dcucumber.features=src/test/java/com/matschie/parcelshop/features/${{ github.event.inputs.feature_files }}"
+        fi
+        if [ -n "${{ github.event.inputs.cucumber_tags }}" ]; then
+          TAG_ARG="-Dcucumber.filter.tags='${{ github.event.inputs.cucumber_tags }}'"
+        fi
+        mvn clean test $FEATURE_ARG $TAG_ARG -Dtest=ParcelShopCucumberRunner
       continue-on-error: true
     
     - name: Generate Allure Report

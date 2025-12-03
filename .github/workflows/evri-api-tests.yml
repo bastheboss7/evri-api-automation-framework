@@ -11,8 +11,10 @@ on:
   pull_request:
     branches: [ main, develop ]
   workflow_dispatch:
-  schedule:
-    - cron: '0 6 * * 1-5'  # Run at 6 AM UTC, Monday-Friday
+  #Disable Job
+  # schedule:
+  #   - cron: '0 6 * * 1-5'  # Run at 6 AM UTC, Monday-Friday
+
 
 jobs:
   test:
